@@ -5,6 +5,8 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service
 class CalculatorService {
 
@@ -28,6 +30,8 @@ class CalculatorService {
      */
     public CalculatorResult getMeasurement(GeometricShapeCalculator calculator,
                                            GeometricShape shape) throws ConstraintViolationException {
+        checkNotNull(calculator);
+        checkNotNull(shape);
         var value = calculator.calculate(validatedGeometricShape(shape));
         return new CalculatorResult(value);
     }
