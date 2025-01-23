@@ -19,5 +19,4 @@ public class GeometricShapeCalculatorApplication {
     public static void main(String[] args) {
         SpringApplication.run(GeometricShapeCalculatorApplication.class, args);
     }
-
 }
