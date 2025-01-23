@@ -144,5 +144,4 @@ public class CalculatorControllerEndToEndTest {
                 Arguments.of("/area/square", "side: 1}", "IllegalStateException: Expected BEGIN_OBJECT")
         );
     }
-
 }

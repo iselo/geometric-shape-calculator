@@ -121,7 +121,6 @@ class CalculatorControllerTest {
                 .andExpect(jsonPath("$.value").value(4.0));
     }
 
-
     private static Stream<Arguments> obtainsCalculatorResultResponse() {
         return Stream.of(
                 Arguments.of("area", "square", new AreaCalculator(), new Square(2.1), 4.41),

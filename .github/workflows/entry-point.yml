@@ -1,0 +1,8 @@
+name: Entry Point
+
+on: [ push, pull_request ]
+jobs:
+
+  gradle-build:
+    secrets: inherit
+    uses: ./.github/workflows/gradle-build.yml
