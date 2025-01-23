@@ -29,6 +29,5 @@ class CalculatorConfiguration {
                 .put("rectangle", new GeometricShapeDeserializer(Rectangle.class))
                 .put("triangle", new GeometricShapeDeserializer(Triangle.class))
                 .build();
-
     }
 }
