@@ -3,6 +3,9 @@ package org.test.shapecalculator.calculator;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+/**
+ * The deserializer of geometric shape from JSON string to the object.
+ */
 final class GeometricShapeDeserializer implements Deserializer<GeometricShape> {
 
     private final Class<? extends GeometricShape> type;

@@ -28,16 +28,16 @@ class GeometricShapeDeserializerTest {
     @ValueSource(classes = {Square.class, Circle.class, Rectangle.class, Triangle.class})
     @DisplayName("rises JSON syntax exception")
     void detectsJsonSyntaxException(Class<? extends GeometricShape> type){
-        assertThatThrownBy( ()-> new GeometricShapeDeserializer(type).fromJson("vector:"))
+        assertThatThrownBy( ()-> new GeometricShapeDeserializer(type).fromJson("{vector:"))
                 .isInstanceOf(JsonSyntaxException.class);
     }
 
     private static Stream<Arguments> deserializesJson() {
         return Stream.of(
-                Arguments.of("{\"side\":2.0}", Square.class, new Square(2.0)),
-                Arguments.of("{\"radius\":1.0}", Circle.class, new Circle(1.0)),
-                Arguments.of("{\"sideA\":1.5,\"sideB\":3.8}", Rectangle.class, new Rectangle(1.5, 3.8)),
-                Arguments.of("{\"sideA\":4.0,\"sideB\":3.0,\"sideC\":5.0,\"height\":3.0}", Triangle.class, new Triangle(4.0, 3.0, 5.0, 3.0))
+                Arguments.of("{side:2.0}", Square.class, new Square(2.0)),
+                Arguments.of("{radius:1.0}", Circle.class, new Circle(1.0)),
+                Arguments.of("{sideA:1.5,sideB:3.8}", Rectangle.class, new Rectangle(1.5, 3.8)),
+                Arguments.of("{sideA:4.0,sideB:3.0,sideC:5.0,height:3.0}", Triangle.class, new Triangle(4.0, 3.0, 5.0, 3.0))
 
         );
     }

@@ -66,7 +66,7 @@ class CalculatorControllerTest {
                                                   String expectedMessage) throws Exception {
         perform(post(urlTemplate)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"side\":2.0}")
+                .content("{side:2.0}")
         )
                 .andExpect(status().isNotFound())
                 .andExpect(result ->
@@ -78,10 +78,10 @@ class CalculatorControllerTest {
     @ParameterizedTest
     @MethodSource
     @DisplayName("handles exception of JSON syntax")
-    void returnsJsonValidationErrorAnd400(String urlTemplate, Class<? extends GeometricShape> shape) throws Exception {
+    void returnsJsonSyntaxErrorAnd400(String urlTemplate, Class<? extends GeometricShape> shape) throws Exception {
         perform(post(urlTemplate)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"vector\":}")
+                .content("{vector:}")
         )
                 .andExpect(status().isBadRequest())
                 .andExpect(result ->
@@ -131,7 +131,7 @@ class CalculatorControllerTest {
         );
     }
 
-    private static Stream<Arguments> returnsJsonValidationErrorAnd400() {
+    private static Stream<Arguments> returnsJsonSyntaxErrorAnd400() {
         return Stream.of(
                 Arguments.of("/area/square", Square.class),
                 Arguments.of("/area/square", Rectangle.class),

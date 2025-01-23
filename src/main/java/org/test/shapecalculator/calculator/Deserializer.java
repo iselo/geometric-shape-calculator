@@ -8,7 +8,7 @@ package org.test.shapecalculator.calculator;
 interface Deserializer<T> {
 
     /**
-     * Deserializes the specified JSON into an object of the specified class.
+     * Deserializes a given JSON into an object of the specified class.
      *
      * @param json the string from which the object is to be deserialized
      * @return an object of type T from the string
