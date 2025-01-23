@@ -18,7 +18,6 @@ class CalculatorService {
     /**
      * Obtains measurement results from specific geometry shape calculator for
      * the given geometric shape.
-     * <p>
      *
      * @param calculator concrete geometric sha[pe calculator that implements
      *                   {@code GeometricShapeCalculator}

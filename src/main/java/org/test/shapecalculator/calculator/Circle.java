@@ -9,7 +9,7 @@ import lombok.ToString;
 import static java.lang.Math.PI;
 
 /**
- * A circle geometric shape.
+ * The circle geometric shape.
  */
 @AllArgsConstructor
 @ToString

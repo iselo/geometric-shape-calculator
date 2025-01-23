@@ -3,7 +3,7 @@ package org.test.shapecalculator.calculator;
 import lombok.EqualsAndHashCode;
 
 /**
- * Area calculator of geometric shapes.
+ * The area calculator of geometric shape.
  */
 @EqualsAndHashCode
 final class AreaCalculator extends GeometricShapeCalculator {

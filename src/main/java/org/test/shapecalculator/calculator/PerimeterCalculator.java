@@ -3,7 +3,7 @@ package org.test.shapecalculator.calculator;
 import lombok.EqualsAndHashCode;
 
 /**
- * Perimeter calculator of geometric shapes.
+ * The perimeter calculator of geometric shape.
  */
 @EqualsAndHashCode
 class PerimeterCalculator extends GeometricShapeCalculator {

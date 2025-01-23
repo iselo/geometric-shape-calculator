@@ -6,7 +6,7 @@ import lombok.ToString;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * The geometry shape calculator result.
+ * The geometry shape calculator result to be returned by the REST controller.
  */
 @ResponseBody
 @AllArgsConstructor

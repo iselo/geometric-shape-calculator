@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * The exception is risen when requested measurement is unsupported by
- * the calculator.
+ * the geometric shape calculator.
  */
 @ResponseBody
 public final class NotSupportedMeasurementException extends RuntimeException {

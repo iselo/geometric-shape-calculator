@@ -12,8 +12,9 @@ import org.test.shapecalculator.AbstractExceptionHandler;
 import org.test.shapecalculator.CalculatorMeasurementStatus;
 
 /**
- * Handles exceptional states of the geometric shape calculator and provides
- * a web responses with message described by JSON content.
+ * The handler of the exceptional states of the geometric shape calculator.
+ * Its methods provide a web response with appropriate HTTP status code and
+ * message details.
  */
 @RestControllerAdvice
 final class CalculatorExceptionHandler extends AbstractExceptionHandler {
@@ -51,6 +52,10 @@ final class CalculatorExceptionHandler extends AbstractExceptionHandler {
         return newResponseEntity(request, e, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles situations when provided geometric shape details has incorrect
+     * JSON syntax.
+     */
     @ExceptionHandler(JsonSyntaxException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<CalculatorMeasurementStatus> handle(HttpServletRequest request,

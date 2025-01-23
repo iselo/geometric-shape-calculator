@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A rectangle geometric shape.
+ * The rectangle geometric shape.
  */
 @AllArgsConstructor
 @ToString

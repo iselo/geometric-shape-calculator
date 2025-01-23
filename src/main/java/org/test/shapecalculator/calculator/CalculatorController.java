@@ -29,11 +29,15 @@ class CalculatorController {
         this.deserializers = deserializers;
     }
 
-
     /**
      * Handles a web request to the REST endpoint `/{measurementType}/{shapeType}`.
-     * where  `{measurementType}` and `/`{shapeType}` are predefined variable
-     * parameters.
+     * <p>
+     * The `{measurementType}` and `/`{shapeType}` are variable parameters
+     * to define what measurement operation should be processed on which
+     * shape type. These parameters are case-insensitive.
+     * <p>
+     * Current implementation supports area and perimeter calculation for
+     * a square, circle, rectangle and triangle.
      *
      * @param measurementType the name of the geometry shape measurement type
      * @param shapeType       the name of the geometry shape type

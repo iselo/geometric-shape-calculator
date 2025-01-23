@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 class CalculatorConfiguration {
 
     /**
-     * Provides a new configured calculator instance.
+     * Provides a configured calculator instance.
      */
     @Bean
     public ImmutableMap<String, GeometricShapeCalculator> calculator() {
@@ -18,6 +18,9 @@ class CalculatorConfiguration {
                 .build();
     }
 
+    /**
+     * Provides deserializers for supported geometric shape types.
+     */
     @Bean
     public ImmutableMap<String, Deserializer<GeometricShape>> deserializers() {
         return ImmutableMap.<String, Deserializer<GeometricShape>>builder()
