@@ -39,23 +39,28 @@ class CalculatorController {
      * @param shapeType       the name of the geometry shape type
      * @param json            the json data that describes geometry shape type details
      * @return calculated result of the geometric shape measurement
-     * @throws NotSupportedShapeException       if requested geometry shape type is unsupported
-     * @throws NotSupportedMeasurementException if requested geometry measurement type  is unsupported
      */
     @PostMapping(path = "/{measurementType}/{shapeType}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public CalculatorResult calculate(@PathVariable String measurementType,
                                       @PathVariable String shapeType,
-                                      @RequestBody String json)
-            throws NotSupportedShapeException, NotSupportedMeasurementException {
-        var shape = Optional.ofNullable(deserializers.get(shapeType))
+                                      @RequestBody String json) {
+        var shape = shape(shapeType, json);
+        var calculator = calculator(measurementType);
+        return service.getMeasurement(calculator, shape);
+    }
+
+    private GeometricShapeCalculator calculator(String measurementType) throws NotSupportedMeasurementException {
+        var measurementName = measurementType.toLowerCase();
+        return Optional.ofNullable(calculators.get(measurementName))
+                .orElseThrow(notSupportedMeasurement(measurementType));
+    }
+
+    private GeometricShape shape(String shapeType, String json) throws NotSupportedShapeException {
+        var shapeName = shapeType.toLowerCase();
+        return Optional.ofNullable(deserializers.get(shapeName))
                 .orElseThrow(notSupportedShape(shapeType))
                 .fromJson(json);
-
-        var calculator = Optional.ofNullable(calculators.get(measurementType))
-                .orElseThrow(notSupportedMeasurement(measurementType));
-
-        return service.getMeasurement(calculator, shape);
     }
 
     private Supplier<NotSupportedShapeException> notSupportedShape(String shapeType) {

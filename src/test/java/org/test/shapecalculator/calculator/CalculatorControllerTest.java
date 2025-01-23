@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +53,7 @@ class CalculatorControllerTest {
                 .content(new Gson().toJson(shape))
         )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.value").value(closeTo(expectedValue, 0.001)));
 
         verify(service).getMeasurement(calculator, shape);
@@ -69,6 +70,7 @@ class CalculatorControllerTest {
                 .content("{side:2.0}")
         )
                 .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(result ->
                         assertThat(result.getResolvedException())
                                 .isInstanceOf(expectedExceptionType))
@@ -84,6 +86,7 @@ class CalculatorControllerTest {
                 .content("{vector:}")
         )
                 .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(result ->
                         assertThat(result.getResolvedException())
                                 .isInstanceOf(JsonSyntaxException.class))
@@ -99,11 +102,25 @@ class CalculatorControllerTest {
                 .content(new Gson().toJson(shape))
         )
                 .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(result ->
                         assertThat(result.getResolvedException())
                                 .isInstanceOf(ConstraintViolationException.class))
                 .andExpect(jsonPath("$.message").value(startsWith("Geometric shape violates:")));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"/AREA/square", "/area/SQUARE", "/Area/squaRe"})
+    void acceptsCaseInsensitivity(String urlTemplate) throws Exception {
+        perform(post(urlTemplate)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{side:2.0}")
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.value").value(4.0));
+    }
+
 
     private static Stream<Arguments> obtainsCalculatorResultResponse() {
         return Stream.of(
