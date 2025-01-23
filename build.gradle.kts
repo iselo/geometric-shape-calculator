@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "2.7.18"
     id("io.spring.dependency-management") version "1.1.7"
     jacoco
+    checkstyle
 }
 
 group = "org.test"
@@ -38,6 +39,10 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+checkstyle {
+    toolVersion = "10.21.1"
 }
 
 tasks {

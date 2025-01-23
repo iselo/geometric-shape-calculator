@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 /**
  * The area calculator of geometric shape.
  */
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 final class AreaCalculator extends GeometricShapeCalculator {
 
     /**

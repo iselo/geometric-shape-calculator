@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 /**
  * The perimeter calculator of geometric shape.
  */
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 class PerimeterCalculator extends GeometricShapeCalculator {
 
     /**
