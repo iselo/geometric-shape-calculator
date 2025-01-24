@@ -4,12 +4,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
  * The triangle geometric shape.
  */
 @AllArgsConstructor
+@Getter
 @ToString
 @EqualsAndHashCode
 public class Triangle implements GeometricShape {
@@ -31,12 +33,7 @@ public class Triangle implements GeometricShape {
     private final Double height;
 
     @Override
-    public Double area() {
-        return sideC * height / 2;
-    }
-
-    @Override
-    public Double perimeter() {
-        return sideA + sideB + sideC;
+    public Double accept(GeometricShapeVisitor visitor) {
+        return visitor.visit(this);
     }
 }

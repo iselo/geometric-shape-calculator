@@ -17,12 +17,12 @@ import java.util.function.Supplier;
 class CalculatorController {
 
     private CalculatorService service;
-    private ImmutableMap<String, GeometricShapeCalculator> calculators;
+    private ImmutableMap<String, GeometricShapeVisitor> calculators;
     private ImmutableMap<String, Deserializer<GeometricShape>> deserializers;
 
     @Autowired
     public CalculatorController(CalculatorService service,
-                                ImmutableMap<String, GeometricShapeCalculator> calculators,
+                                ImmutableMap<String, GeometricShapeVisitor> calculators,
                                 ImmutableMap<String, Deserializer<GeometricShape>> deserializers) {
         this.service = service;
         this.calculators = calculators;
@@ -54,7 +54,7 @@ class CalculatorController {
         return service.getMeasurement(calculator, shape);
     }
 
-    private GeometricShapeCalculator calculator(String measurementType) throws NotSupportedMeasurementException {
+    private GeometricShapeVisitor calculator(String measurementType) throws NotSupportedMeasurementException {
         var measurementName = measurementType.toLowerCase();
         return Optional.ofNullable(calculators.get(measurementName))
                 .orElseThrow(notSupportedMeasurement(measurementType));

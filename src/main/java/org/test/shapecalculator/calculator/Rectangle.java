@@ -4,12 +4,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
  * The rectangle geometric shape.
  */
 @AllArgsConstructor
+@Getter
 @ToString
 @EqualsAndHashCode
 public class Rectangle implements GeometricShape {
@@ -23,12 +25,8 @@ public class Rectangle implements GeometricShape {
     private final Double sideB;
 
     @Override
-    public Double area() {
-        return sideA * sideB;
-    }
+    public Double accept(GeometricShapeVisitor visitor) {
 
-    @Override
-    public Double perimeter() {
-        return 2 * (sideA + sideB);
+        return visitor.visit(this);
     }
 }

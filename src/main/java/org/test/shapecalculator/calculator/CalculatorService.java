@@ -28,15 +28,16 @@ class CalculatorService {
      * @throws ConstraintViolationException if given geometric shape details
      *                                      violates it's constrains.
      */
-    public CalculatorResult getMeasurement(GeometricShapeCalculator calculator,
+    public CalculatorResult getMeasurement(GeometricShapeVisitor calculator,
                                            GeometricShape shape) throws ConstraintViolationException {
         checkNotNull(calculator);
         checkNotNull(shape);
-        var value = calculator.calculate(validatedGeometricShape(shape));
+        validateGeometricShape(shape);
+        var value = shape.accept(calculator);
         return new CalculatorResult(value);
     }
 
-    private GeometricShape validatedGeometricShape(GeometricShape shape) throws ConstraintViolationException {
+    private void validateGeometricShape(GeometricShape shape) throws ConstraintViolationException {
         var violations = validator.validate(shape);
 
         if (!violations.isEmpty()) {
@@ -46,7 +47,5 @@ class CalculatorService {
             }
             throw new ConstraintViolationException("Geometric shape violates: " + violationMessages, violations);
         }
-
-        return shape;
     }
 }

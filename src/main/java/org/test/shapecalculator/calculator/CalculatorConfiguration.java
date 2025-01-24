@@ -11,10 +11,10 @@ class CalculatorConfiguration {
      * Provides a configured calculator instance.
      */
     @Bean
-    public ImmutableMap<String, GeometricShapeCalculator> calculator() {
-        return ImmutableMap.<String, GeometricShapeCalculator>builder()
-                .put("area", new AreaCalculator())
-                .put("perimeter", new PerimeterCalculator())
+    public ImmutableMap<String, GeometricShapeVisitor> calculator() {
+        return ImmutableMap.<String, GeometricShapeVisitor>builder()
+                .put("area", new AreaMeasurement())
+                .put("perimeter", new PerimeterMeasurement())
                 .build();
     }
 

@@ -4,14 +4,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
-
-import static java.lang.Math.PI;
 
 /**
  * The circle geometric shape.
  */
 @AllArgsConstructor
+@Getter
 @ToString
 @EqualsAndHashCode
 final class Circle implements GeometricShape {
@@ -21,12 +21,8 @@ final class Circle implements GeometricShape {
     private final Double radius;
 
     @Override
-    public Double area() {
-        return PI * radius * radius;
-    }
+    public Double accept(GeometricShapeVisitor visitor) {
 
-    @Override
-    public Double perimeter() {
-        return 2 * PI * radius;
+        return visitor.visit(this);
     }
 }

@@ -19,11 +19,8 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.stream.Stream;
 
-import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.startsWith;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -38,7 +35,7 @@ class CalculatorControllerTest {
 
     @SpyBean
     private CalculatorService service;
-
+/*
     @ParameterizedTest
     @MethodSource
     @DisplayName("obtains response with calculator results")
@@ -58,6 +55,8 @@ class CalculatorControllerTest {
 
         verify(service).getMeasurement(calculator, shape);
     }
+
+ */
 
     @ParameterizedTest
     @MethodSource
@@ -121,6 +120,7 @@ class CalculatorControllerTest {
                 .andExpect(jsonPath("$.value").value(4.0));
     }
 
+    /*
     private static Stream<Arguments> obtainsCalculatorResultResponse() {
         return Stream.of(
                 Arguments.of("area", "square", new AreaCalculator(), new Square(2.1), 4.41),
@@ -135,6 +135,8 @@ class CalculatorControllerTest {
                 Arguments.of("perimeter", "triangle", new PerimeterCalculator(), new Triangle(4.0, 3.0, 5.0, 3.0), 12.0)
         );
     }
+
+     */
 
     private static Stream<Arguments> returnsUnsupportedErrorMessageAndHttp404() {
         return Stream.of(

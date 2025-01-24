@@ -4,12 +4,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
  * The square geometric shape.
  */
 @AllArgsConstructor
+@Getter
 @ToString
 @EqualsAndHashCode
 final class Square implements GeometricShape {
@@ -19,12 +21,7 @@ final class Square implements GeometricShape {
     private Double side;
 
     @Override
-    public Double area() {
-        return side * side;
-    }
-
-    @Override
-    public Double perimeter() {
-        return 4 * side;
+    public Double accept(GeometricShapeVisitor visitor) {
+        return visitor.visit(this);
     }
 }
