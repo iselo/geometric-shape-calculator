@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.test.shapecalculator.AbstractExceptionHandler;
-import org.test.shapecalculator.CalculatorMeasurementStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.test.shapecalculator.common.AbstractExceptionHandler;
+import org.test.shapecalculator.common.ApiErrorResponse;
 
 /**
  * The handler of the exceptional states of the geometric shape calculator.
@@ -20,24 +21,13 @@ import org.test.shapecalculator.CalculatorMeasurementStatus;
 final class CalculatorExceptionHandler extends AbstractExceptionHandler {
 
     /**
-     * Handles situations when requested geometric shape type is not supported
-     * by the API.
+     * Handles situations when requested geometric shape mind or measurement
+     * type is not supported by the API.
      */
-    @ExceptionHandler(NotSupportedShapeException.class)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<CalculatorMeasurementStatus> handle(HttpServletRequest request,
-                                                              NotSupportedShapeException e) {
-        return newResponseEntity(request, e, HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * Handles situations when requested geometric shape measurement type is not
-     * supported by the API.
-     */
-    @ExceptionHandler(NotSupportedMeasurementException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<CalculatorMeasurementStatus> handle(HttpServletRequest request,
-                                                              NotSupportedMeasurementException e) {
+    public ResponseEntity<ApiErrorResponse> handle(HttpServletRequest request,
+                                                   MethodArgumentTypeMismatchException e) {
         return newResponseEntity(request, e, HttpStatus.NOT_FOUND);
     }
 
@@ -47,8 +37,8 @@ final class CalculatorExceptionHandler extends AbstractExceptionHandler {
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<CalculatorMeasurementStatus> handle(HttpServletRequest request,
-                                                              ConstraintViolationException e) {
+    public ResponseEntity<ApiErrorResponse> handle(HttpServletRequest request,
+                                                   ConstraintViolationException e) {
         return newResponseEntity(request, e, HttpStatus.BAD_REQUEST);
     }
 
@@ -58,8 +48,8 @@ final class CalculatorExceptionHandler extends AbstractExceptionHandler {
      */
     @ExceptionHandler(JsonSyntaxException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<CalculatorMeasurementStatus> handle(HttpServletRequest request,
-                                                              JsonSyntaxException e) {
+    public ResponseEntity<ApiErrorResponse> handle(HttpServletRequest request,
+                                                   JsonSyntaxException e) {
         return newResponseEntity(request, e, HttpStatus.BAD_REQUEST);
     }
 }

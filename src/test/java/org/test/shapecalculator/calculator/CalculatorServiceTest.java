@@ -23,7 +23,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.within;
 class CalculatorServiceTest {
 
     @MockBean
-    private ImmutableMap<String, GeometricShapeCalculator> calculator;
+    private ImmutableMap<String, GeometricShapeVisitor> calculator;
 
     @Autowired
     private Validator validator;
@@ -38,7 +38,7 @@ class CalculatorServiceTest {
     @ParameterizedTest
     @MethodSource
     @DisplayName("can measure shape")
-    void measuresGeometricShape(GeometricShapeCalculator calculator, GeometricShape shape, Double expectedResult) {
+    void measuresGeometricShape(GeometricShapeVisitor calculator, GeometricShape shape, Double expectedResult) {
         assertThat(service.getMeasurement(calculator, shape).getValue())
                 .isCloseTo(expectedResult, within(0.001));
     }
@@ -46,22 +46,22 @@ class CalculatorServiceTest {
     @ParameterizedTest
     @MethodSource
     void throwsValidationException(GeometricShape shape) {
-        assertThatThrownBy(() -> service.getMeasurement(new AreaCalculator(), shape))
+        assertThatThrownBy(() -> service.getMeasurement(new AreaMeasurement(), shape))
                 .isInstanceOf(ConstraintViolationException.class);
     }
 
     private static Stream<Arguments> measuresGeometricShape() {
         return Stream.of(
-                Arguments.of(new AreaCalculator(), new Square(2.1), 4.41),
-                Arguments.of(new AreaCalculator(), new Rectangle(2.0, 4.5), 9.0),
-                Arguments.of(new AreaCalculator(), new Circle(1.0), 3.1416),
-                Arguments.of(new AreaCalculator(), new Circle(2.1), 13.8544),
-                Arguments.of(new AreaCalculator(), new Triangle(4.0, 3.0, 5.0, 3.0), 7.5),
-                Arguments.of(new PerimeterCalculator(), new Square(2.1), 8.4),
-                Arguments.of(new PerimeterCalculator(), new Rectangle(2.0, 4.5), 13.0),
-                Arguments.of(new PerimeterCalculator(), new Circle(1.0), 6.2832),
-                Arguments.of(new PerimeterCalculator(), new Circle(2.1), 13.1946),
-                Arguments.of(new PerimeterCalculator(), new Triangle(4.0, 3.0, 5.0, 3.0), 12.0)
+                Arguments.of(new AreaMeasurement(), new Square(2.1), 4.41),
+                Arguments.of(new AreaMeasurement(), new Rectangle(2.0, 4.5), 9.0),
+                Arguments.of(new AreaMeasurement(), new Circle(1.0), 3.1416),
+                Arguments.of(new AreaMeasurement(), new Circle(2.1), 13.8544),
+                Arguments.of(new AreaMeasurement(), new Triangle(4.0, 3.0, 5.0, 3.0), 7.5),
+                Arguments.of(new PerimeterMeasurement(), new Square(2.1), 8.4),
+                Arguments.of(new PerimeterMeasurement(), new Rectangle(2.0, 4.5), 13.0),
+                Arguments.of(new PerimeterMeasurement(), new Circle(1.0), 6.2832),
+                Arguments.of(new PerimeterMeasurement(), new Circle(2.1), 13.1946),
+                Arguments.of(new PerimeterMeasurement(), new Triangle(4.0, 3.0, 5.0, 3.0), 12.0)
 
         );
     }

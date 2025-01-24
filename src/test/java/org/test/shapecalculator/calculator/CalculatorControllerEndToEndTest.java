@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.startsWith;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient(timeout = "PT15S")
@@ -62,7 +63,7 @@ public class CalculatorControllerEndToEndTest {
                 .expectStatus().isNotFound()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
-                .jsonPath("$.message").isEqualTo(expectedMessage);
+                .jsonPath("$.message").value(startsWith(expectedMessage));
     }
 
     @ParameterizedTest
@@ -116,12 +117,12 @@ public class CalculatorControllerEndToEndTest {
 
     private static Stream<Arguments> returnsUnsupportedErrorMessageAndHttp404() {
         return Stream.of(
-                Arguments.of("feature", "square", "Requested geometric shape measurement is not supported: feature"),
-                Arguments.of("feature", "circle", "Requested geometric shape measurement is not supported: feature"),
-                Arguments.of("feature", "rectangle", "Requested geometric shape measurement is not supported: feature"),
-                Arguments.of("feature", "triangle", "Requested geometric shape measurement is not supported: feature"),
-                Arguments.of("area", "someshape", "Requested geometric shape is not supported: someshape"),
-                Arguments.of("perimeter", "someshape", "Requested geometric shape is not supported: someshape")
+                Arguments.of("feature", "square", "Failed to convert value of type"),
+                Arguments.of("feature", "circle", "Failed to convert value of type"),
+                Arguments.of("feature", "rectangle", "Failed to convert value of type"),
+                Arguments.of("feature", "triangle", "Failed to convert value of type"),
+                Arguments.of("area", "someshape", "Failed to convert value of type"),
+                Arguments.of("perimeter", "someshape", "Failed to convert value of type")
         );
     }
 

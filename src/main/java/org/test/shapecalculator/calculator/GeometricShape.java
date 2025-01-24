@@ -6,12 +6,7 @@ package org.test.shapecalculator.calculator;
 interface GeometricShape {
 
     /**
-     * Obtains area of the geometric shape.
+     * Accepts geometric shape visitor to perform measurement operation.
      */
-    Double area();
-
-    /**
-     * Obtains perimeter of the geometric shape.
-     */
-    Double perimeter();
+    Double accept(GeometricShapeVisitor visitor);
 }

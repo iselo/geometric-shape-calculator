@@ -10,7 +10,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 class CalculatorService {
 
-    private Validator validator;
+    private final Validator validator;
 
     @Autowired
     public CalculatorService(Validator validator) {
@@ -28,11 +28,11 @@ class CalculatorService {
      * @throws ConstraintViolationException if given geometric shape details
      *                                      violates it's constrains.
      */
-    public CalculatorResult getMeasurement(GeometricShapeCalculator calculator,
+    public CalculatorResult getMeasurement(GeometricShapeVisitor calculator,
                                            GeometricShape shape) throws ConstraintViolationException {
         checkNotNull(calculator);
         checkNotNull(shape);
-        var value = calculator.calculate(validatedGeometricShape(shape));
+        var value = validatedGeometricShape(shape).accept(calculator);
         return new CalculatorResult(value);
     }
 

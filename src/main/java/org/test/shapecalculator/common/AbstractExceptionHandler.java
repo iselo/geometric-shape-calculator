@@ -1,4 +1,4 @@
-package org.test.shapecalculator;
+package org.test.shapecalculator.common;
 
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +11,11 @@ import org.springframework.http.ResponseEntity;
 @Slf4j
 public abstract class AbstractExceptionHandler {
 
-    protected ResponseEntity<CalculatorMeasurementStatus> newResponseEntity(HttpServletRequest request,
-                                                                            Throwable e,
-                                                                            HttpStatus httpStatus) {
+    protected ResponseEntity<ApiErrorResponse> newResponseEntity(HttpServletRequest request,
+                                                                 Throwable e,
+                                                                 HttpStatus httpStatus) {
         log.error(request.getRequestURL().toString() + " | " + e.getMessage() + " | " + httpStatus.toString());
-        var measurementError = new CalculatorMeasurementStatus(e.getMessage());
+        var measurementError = new ApiErrorResponse(e.getMessage());
         return new ResponseEntity<>(measurementError, httpStatus);
     }
 }
