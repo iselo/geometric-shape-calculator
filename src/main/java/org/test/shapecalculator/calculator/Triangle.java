@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Triangle implements GeometricShape {
+final class Triangle implements GeometricShape {
 
     @NotNull
     @Positive
@@ -34,6 +34,6 @@ public class Triangle implements GeometricShape {
 
     @Override
     public Double accept(GeometricShapeVisitor visitor) {
-        return visitor.visit(this);
+        return visitor.calculate(this);
     }
 }

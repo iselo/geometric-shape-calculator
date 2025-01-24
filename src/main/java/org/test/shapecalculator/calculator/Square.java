@@ -22,6 +22,6 @@ final class Square implements GeometricShape {
 
     @Override
     public Double accept(GeometricShapeVisitor visitor) {
-        return visitor.visit(this);
+        return visitor.calculate(this);
     }
 }

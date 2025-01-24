@@ -3,6 +3,7 @@ package org.test.shapecalculator.calculator;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.test.shapecalculator.common.Deserializer;
 
 @Configuration
 class CalculatorConfiguration {

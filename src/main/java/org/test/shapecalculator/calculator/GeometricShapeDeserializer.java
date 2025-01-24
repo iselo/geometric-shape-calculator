@@ -2,6 +2,7 @@ package org.test.shapecalculator.calculator;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import org.test.shapecalculator.common.Deserializer;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

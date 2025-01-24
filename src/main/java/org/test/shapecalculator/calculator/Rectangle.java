@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Rectangle implements GeometricShape {
+final class Rectangle implements GeometricShape {
 
     @NotNull
     @Positive
@@ -27,6 +27,6 @@ public class Rectangle implements GeometricShape {
     @Override
     public Double accept(GeometricShapeVisitor visitor) {
 
-        return visitor.visit(this);
+        return visitor.calculate(this);
     }
 }
