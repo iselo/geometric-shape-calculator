@@ -26,7 +26,6 @@ final class Rectangle implements GeometricShape {
 
     @Override
     public Double accept(GeometricShapeVisitor visitor) {
-
         return visitor.calculate(this);
     }
 }

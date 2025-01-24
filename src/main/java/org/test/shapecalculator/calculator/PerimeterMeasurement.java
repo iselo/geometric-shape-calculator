@@ -1,10 +1,13 @@
 package org.test.shapecalculator.calculator;
 
+import org.springframework.stereotype.Component;
+
 import static java.lang.Math.PI;
 
 /**
  * The perimeter measurement operation on geometric shape type.
  */
+@Component
 final class PerimeterMeasurement implements GeometricShapeVisitor {
 
     /**

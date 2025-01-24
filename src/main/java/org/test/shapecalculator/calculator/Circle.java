@@ -22,7 +22,6 @@ final class Circle implements GeometricShape {
 
     @Override
     public Double accept(GeometricShapeVisitor visitor) {
-
         return visitor.calculate(this);
     }
 }

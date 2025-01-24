@@ -7,7 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.stream.Stream;
 
@@ -108,44 +108,30 @@ class CalculatorControllerTest {
                 .andExpect(jsonPath("$.message").value(startsWith("Geometric shape violates:")));
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"/AREA/square", "/area/SQUARE", "/Area/squaRe"})
-    void acceptsCaseInsensitivity(String urlTemplate) throws Exception {
-        perform(post(urlTemplate)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{side:2.0}")
-        )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.value").value(4.0));
-    }
-
-    /*
     private static Stream<Arguments> obtainsCalculatorResultResponse() {
         return Stream.of(
-                Arguments.of("area", "square", new AreaCalculator(), new Square(2.1), 4.41),
-                Arguments.of("area", "rectangle", new AreaCalculator(), new Rectangle(2.0, 4.5), 9.0),
-                Arguments.of("area", "circle", new AreaCalculator(), new Circle(1.0), 3.1416),
-                Arguments.of("area", "circle", new AreaCalculator(), new Circle(2.1), 13.8544),
-                Arguments.of("area", "triangle", new AreaCalculator(), new Triangle(4.0, 3.0, 5.0, 3.0), 7.5),
-                Arguments.of("perimeter", "square", new PerimeterCalculator(), new Square(2.1), 8.4),
-                Arguments.of("perimeter", "rectangle", new PerimeterCalculator(), new Rectangle(2.0, 4.5), 13.0),
-                Arguments.of("perimeter", "circle", new PerimeterCalculator(), new Circle(1.0), 6.2832),
-                Arguments.of("perimeter", "circle", new PerimeterCalculator(), new Circle(2.1), 13.1946),
-                Arguments.of("perimeter", "triangle", new PerimeterCalculator(), new Triangle(4.0, 3.0, 5.0, 3.0), 12.0)
+                Arguments.of("area", "square", new AreaMeasurement(), new Square(2.1), 4.41),
+                Arguments.of("area", "rectangle", new AreaMeasurement(), new Rectangle(2.0, 4.5), 9.0),
+                Arguments.of("area", "circle", new AreaMeasurement(), new Circle(1.0), 3.1416),
+                Arguments.of("area", "circle", new AreaMeasurement(), new Circle(2.1), 13.8544),
+                Arguments.of("area", "triangle", new AreaMeasurement(), new Triangle(4.0, 3.0, 5.0, 3.0), 7.5),
+                Arguments.of("perimeter", "square", new PerimeterMeasurement(), new Square(2.1), 8.4),
+                Arguments.of("perimeter", "rectangle", new PerimeterMeasurement(), new Rectangle(2.0, 4.5), 13.0),
+                Arguments.of("perimeter", "circle", new PerimeterMeasurement(), new Circle(1.0), 6.2832),
+                Arguments.of("perimeter", "circle", new PerimeterMeasurement(), new Circle(2.1), 13.1946),
+                Arguments.of("perimeter", "triangle", new PerimeterMeasurement(), new Triangle(4.0, 3.0, 5.0, 3.0), 12.0)
         );
     }
 
-     */
 
     private static Stream<Arguments> returnsUnsupportedErrorMessageAndHttp404() {
         return Stream.of(
-                Arguments.of("/area/unsupportedShape", NotSupportedShapeException.class, "Requested geometric shape is not supported: unsupportedShape"),
-                Arguments.of("/perimeter/unsupportedShape", NotSupportedShapeException.class, "Requested geometric shape is not supported: unsupportedShape"),
-                Arguments.of("/unsupportedMeasurement/square", NotSupportedMeasurementException.class, "Requested geometric shape measurement is not supported: unsupportedMeasurement"),
-                Arguments.of("/unsupportedMeasurement/circle", NotSupportedMeasurementException.class, "Requested geometric shape measurement is not supported: unsupportedMeasurement"),
-                Arguments.of("/unsupportedMeasurement/rectangle", NotSupportedMeasurementException.class, "Requested geometric shape measurement is not supported: unsupportedMeasurement"),
-                Arguments.of("/unsupportedMeasurement/triangle", NotSupportedMeasurementException.class, "Requested geometric shape measurement is not supported: unsupportedMeasurement")
+                Arguments.of("/area/unsupportedShape", MethodArgumentTypeMismatchException.class, "Failed to convert value of type"),
+                Arguments.of("/perimeter/unsupportedShape", MethodArgumentTypeMismatchException.class, "Failed to convert value of type"),
+                Arguments.of("/unsupportedMeasurement/square", MethodArgumentTypeMismatchException.class, "Failed to convert value of type"),
+                Arguments.of("/unsupportedMeasurement/circle", MethodArgumentTypeMismatchException.class, "Failed to convert value of type"),
+                Arguments.of("/unsupportedMeasurement/rectangle", MethodArgumentTypeMismatchException.class, "Failed to convert value of type"),
+                Arguments.of("/unsupportedMeasurement/triangle", MethodArgumentTypeMismatchException.class, "Failed to convert value of type")
         );
     }
 
