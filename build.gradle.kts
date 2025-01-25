@@ -29,6 +29,7 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-web",
         "org.springframework.boot:spring-boot-starter-validation",
         "org.springframework.boot:spring-boot-starter-webflux",
+        "org.springframework.boot:spring-boot-starter-data-jpa",
         "com.google.guava:guava:33.4.0-jre",
         "com.google.code.gson:gson:2.11.0"
     ).forEach { implementation(it) }
