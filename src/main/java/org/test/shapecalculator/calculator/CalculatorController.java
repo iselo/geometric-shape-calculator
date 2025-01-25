@@ -20,26 +20,26 @@ class CalculatorController {
     }
 
     /**
-     * Handles a web request to the REST endpoint `/{measurement}/{shapeType}`.
+     * Handles a web request to the REST endpoint `/{measurement}/{shape}`.
      * <p>
-     * The `{measurement}` and `/`{shapeDeserializer}` are variable parameters
+     * The `{measurement}` and `/`{shape}` are variable parameters
      * to define what measurement operation should be processed on which
-     * shapeDeserializer type.
+     * shape type.
      * <p>
      * Current implementation supports area and perimeter calculation for
      * a square, circle, rectangle and triangle.
      *
-     * @param measurement the name of the geometry shapeDeserializer measurement type
-     * @param shape   the geometry shape deserializer
-     * @param json        the json data that describes geometry shapeDeserializer type details
-     * @return calculated result of the geometric shapeDeserializer measurement
+     * @param measurement the name of the geometry shape measurement type
+     * @param shape       the geometry shape deserializer
+     * @param json        the json data that describes geometry shape type details
+     * @return calculated result of the geometric shape measurement
      */
     @PostMapping(path = "/{measurement}/{shape}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public CalculatorResult calculate(@PathVariable("measurement") Measurement measurement,
                                       @PathVariable("shape") Shape shape,
                                       @RequestBody String json) {
-        var shapeInstance = shape.newInstanceFrom(json);
+        var shapeInstance = shape.newGeometricShape(json);
         var calculator = measurement.calculator();
         return service.getMeasurement(calculator, shapeInstance);
     }

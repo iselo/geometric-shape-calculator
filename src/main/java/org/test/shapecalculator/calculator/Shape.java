@@ -15,6 +15,7 @@ enum Shape {
     triangle(Triangle.class);
 
     private final Class<? extends GeometricShape> type;
+    private final Gson gson = new Gson();
 
     Shape(Class<? extends GeometricShape> type) {
         this.type = type;
@@ -23,8 +24,8 @@ enum Shape {
     /**
      * Returns a new object deserialized from given string.
      */
-    public GeometricShape newInstanceFrom(String json) {
+    public GeometricShape newGeometricShape(String json) {
         checkNotNull(json);
-        return new Gson().fromJson(json, type);
+        return gson.fromJson(json, type);
     }
 }
