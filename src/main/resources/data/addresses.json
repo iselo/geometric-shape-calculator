@@ -1,0 +1,32 @@
+[
+  {
+    "country": "Ukraine",
+    "region": "Kharkivska",
+    "city": "Kharkiv",
+    "address": "uvjbknm"
+  },
+  {
+    "country": "Ukraine",
+    "region": "Kievska",
+    "city": "Kyiv",
+    "address": "uvjbknm"
+  },
+  {
+    "country": "Ukraine",
+    "region": "Odeska",
+    "city": "Odessa",
+    "address": "uvjbknm"
+  },
+  {
+    "country": "Poland",
+    "region": "Krakow",
+    "city": "Krakow",
+    "address": "uvjbknm"
+  },
+  {
+    "country": "Poland",
+    "region": "Warslaw",
+    "city": "Warslaw",
+    "address": "uvjbknm"
+  }
+]

@@ -33,7 +33,6 @@ dependencies {
         "com.google.code.gson:gson:2.11.0"
     ).forEach { implementation(it) }
 
-
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

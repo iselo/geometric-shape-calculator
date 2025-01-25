@@ -1,0 +1,46 @@
+{
+  "Ukraine": {
+    "Kharkivska": [
+      {
+        "country": "Ukraine",
+        "region": "Kharkivska",
+        "city": "Kharkiv",
+        "address": "uvjbknm"
+      }
+    ],
+    "Odeska": [
+      {
+        "country": "Ukraine",
+        "region": "Odeska",
+        "city": "Odessa",
+        "address": "uvjbknm"
+      }
+    ],
+    "Kievska": [
+      {
+        "country": "Ukraine",
+        "region": "Kievska",
+        "city": "Kyiv",
+        "address": "uvjbknm"
+      }
+    ]
+  },
+  "Poland": {
+    "Krakow": [
+      {
+        "country": "Poland",
+        "region": "Krakow",
+        "city": "Krakow",
+        "address": "uvjbknm"
+      }
+    ],
+    "Warslaw": [
+      {
+        "country": "Poland",
+        "region": "Warslaw",
+        "city": "Warslaw",
+        "address": "uvjbknm"
+      }
+    ]
+  }
+}
