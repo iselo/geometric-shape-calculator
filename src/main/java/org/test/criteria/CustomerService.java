@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.Specification.where;
-import static org.test.criteria.CustomerSpecifications.CUSTOMER_HAS_BIRTHDAY;
-import static org.test.criteria.CustomerSpecifications.IS_LONG_TERM_CUSTOMER;
+import static org.test.criteria.CustomerSpecification.hasBirthday;
+import static org.test.criteria.CustomerSpecification.isLongTermCustomer;
 
 public class CustomerService {
 
@@ -17,7 +17,7 @@ public class CustomerService {
         this.repository = repository;
     }
 
-    public List<Customer> nothing() {
-        return repository.findAll(where(CUSTOMER_HAS_BIRTHDAY).and(IS_LONG_TERM_CUSTOMER));
+    public List<Customer> findAllLongTermCustomerByBirthday() {
+        return repository.findAll(where(hasBirthday()).and(isLongTermCustomer()));
     }
 }

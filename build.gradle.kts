@@ -30,13 +30,17 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-validation",
         "org.springframework.boot:spring-boot-starter-webflux",
         "org.springframework.boot:spring-boot-starter-data-jpa",
+        "org.hibernate:hibernate-jpamodelgen",
         "com.google.guava:guava:33.4.0-jre",
         "com.google.code.gson:gson:2.11.0"
     ).forEach { implementation(it) }
 
+    setOf(
+        "org.projectlombok:lombok",
+        "org.hibernate:hibernate-jpamodelgen"
+    ).forEach { annotationProcessor(it) }
 
     compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
